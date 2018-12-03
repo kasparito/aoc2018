@@ -17,6 +17,6 @@ object Day3 extends App {
   println(coordinateClaims.values.count(_.size > 1)) // 118539
 
   val claimCounts = coordinateClaims.values.flatMap(claims => claims.map(_ -> claims.size))
-    .groupBy(_._1).mapValues(_.map(_._2).toSet).view.force
-  println(claimCounts.find(_._2 == Set(1)).head._1) // 1270
+    .groupBy(_._1).mapValues(_.map(_._2).toList.distinct).view.force
+  println(claimCounts.collectFirst { case (id, List(1)) => id }.head) // 1270
 }
