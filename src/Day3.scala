@@ -18,6 +18,17 @@ object Day3 extends App {
     x <- claim.x
     y <- claim.y
   } yield ((x, y), claim)
+  val coordinateClaims = coordinates
+    .groupBy(_._1)
+    .mapValues(_.map(_._2))
+    .view.force
 
-  println(coordinates.groupBy(_._1).map(_._2.length).count(_ > 1)) // 118539
+  println(coordinateClaims.values.count(_.size > 1)) // 118539
+
+  val idCounts = coordinateClaims.values
+    .flatMap(claims => claims.map(_.id -> claims.size))
+    .groupBy(_._1)
+    .mapValues(_.map(_._2).toSet)
+    .view.force
+  println(idCounts.find(_._2 == Set(1)).head._1) // 1270
 }
