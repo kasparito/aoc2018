@@ -29,6 +29,17 @@ object Day4 extends App {
   }
   println(part1) // 146622
 
+  val part2 = {
+    val ((id, minute), _) = guardMinutes
+      .view
+      .flatMap { case (id, minutes) => minutes.map(m => (id -> m) -> 1) }
+      .groupKeyValue
+      .mapValues(_.sum)
+      .maxBy(_._2)
+    id * minute
+  }
+  println(part2) // 31848
+
   def minute(s: String): Int = s.substring(14, 16).toInt
 
   implicit class KeyValuePairs[K, V](pairs: Iterable[(K, V)]) {
