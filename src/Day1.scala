@@ -1,10 +1,12 @@
-import scala.io.Source
+object Day1 extends Base(1) {
 
-object Day1 extends App {
+  val nums = inputLines.map(_.toInt)
 
-  val nums = Source.fromFile("input/day1.txt").getLines().map(_.toInt).toList
+  override def part1 = // 518
+    nums.sum
 
-  println(nums.sum) // 518
+  override def part2 = // 72889
+    findDuplicateSum(Stream.continually(nums).flatten, Set.empty, 0)
 
   def findDuplicateSum(stream: Stream[Int], sums: Set[Int], lastSum: Int): Int = {
     val sum = lastSum + stream.head
@@ -13,5 +15,4 @@ object Day1 extends App {
     else
       findDuplicateSum(stream.tail, sums + lastSum, sum)
   }
-  println(findDuplicateSum(Stream.continually(nums).flatten, Set.empty, 0)) // 72889
 }
