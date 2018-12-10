@@ -43,9 +43,9 @@ object Day10 extends Base(10) {
 
   val (text, seconds) = findMin(dimensions(points)._2.size, points, 0)
 
-  override def part1 =
+  override def part1 = // ABGXJBXF
     printText(text)
 
-  override def part2 =
+  override def part2 = // 10619
     seconds
 }
